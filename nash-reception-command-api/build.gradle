@@ -1,0 +1,22 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.nashtech.reception'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('org.axonframework:axon-bom:4.10.4')
+    implementation 'org.axonframework:axon-modelling'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+
+    implementation 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}

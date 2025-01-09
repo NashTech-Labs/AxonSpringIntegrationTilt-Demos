@@ -1,0 +1,21 @@
+axon:
+  eventhandling:
+    processors:
+      ledger-projection:
+        preauth-projection: 2
+        mode: pooled
+        thread-count: 1
+        batch-size: 50
+  distributed:
+    enabled: true
+
+spring:
+  datasource:
+    write-side-event-store:
+      jdbc-url: ${SPRING_WRITESIDE_DATASOURCE_URL}
+      username: ${SPRING_DATASOURCE_USERNAME}
+      password: ${SPRING_DATASOURCE_PASSWORD}
+    read-side-projection-store:
+      jdbc-url: ${SPRING_READSIDE_DATASOURCE_URL}
+      username: ${SPRING_DATASOURCE_USERNAME}
+      password: ${SPRING_DATASOURCE_PASSWORD}

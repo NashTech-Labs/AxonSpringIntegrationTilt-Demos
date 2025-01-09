@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "uuid": "436914fa-0701-4ed9-b2c2-ef173e41b731",
+    "messageType": "CheckOutPreAuthorization",
+    "emittedAtDateTime": "2025-01-15T10:00:00Z",
+    "source": "nash-reception-pro",
+    "messageTypeVersion": "1.0"
+  },
+  "data": {
+    "reservationId": "12345",
+    "guestName": "John Doe",
+    "guestEmail": "john.doe@email.com",
+    "checkOutDate": "2025-01-15",
+    "roomNumber": "101",
+    "roomType": "Standard",
+    "amount": 150.00,
+    "hotelId": "IND:DEL:003",
+    "currency": "USD",
+    "paymentMethod": "CreditCard",
+    "preAuthorizationStatus": "Completed",
+    "checkOutTime": "12:00",
+    "finalBillAmount": 145.00,
+    "additionalCharges": 5.00
+  }
+}

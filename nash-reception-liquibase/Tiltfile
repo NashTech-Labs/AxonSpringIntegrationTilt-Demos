@@ -1,0 +1,29 @@
+load('ext://helm_remote', 'helm_remote')
+
+helm_remote(
+  'postgresql',
+  repo_url = 'https://charts.bitnami.com/bitnami',
+  set = [
+      "auth.postgresPassword=postgres1"
+  ]
+)
+
+k8s_resource('postgresql', port_forwards = [5432], labels='nash-db')
+
+docker_build(
+  'nash-axon-db',
+  './axon',
+  dockerfile = 'axon/Dockerfile.tilt',
+)
+
+k8s_yaml('./axon/tilt-deployer.yaml')
+k8s_resource('nash-axon-db', resource_deps = ['postgresql'], labels='nash-db')
+
+docker_build(
+  'nash-reception-projections-db',
+  './projections',
+  dockerfile = 'projections/Dockerfile.tilt',
+)
+
+k8s_yaml('./projections/tilt-deployer.yaml')
+k8s_resource('nash-reception-projections-db', resource_deps = ['postgresql'], labels='nash-db')

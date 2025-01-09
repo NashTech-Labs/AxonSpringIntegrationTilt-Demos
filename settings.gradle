@@ -1,0 +1,20 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    plugins {
+        id 'org.springframework.boot' version '3.4.1'
+        id 'io.spring.dependency-management' version '1.1.7'
+    }
+}
+
+
+rootProject.name = 'nash-reception-ease'
+include ':infra'
+include ':nash-reception-adapter'
+include ':nash-reception-aggregates'
+include ':nash-reception-projections'
+include ':nash-reception-command-api'
+include 'nash-reception-liquibase'
+

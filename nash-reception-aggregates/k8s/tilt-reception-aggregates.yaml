@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nash-reception-aggregates
+  namespace: default
+  labels:
+    app: nash-reception-aggregates
+    app.kubernetes.io/component: nash-reception-aggregates
+    app.kubernetes.io/instance: nash-reception-aggregates
+    app.kubernetes.io/name: nash-reception-aggregates
+spec:
+  selector:
+    matchLabels:
+      app: nash-reception-aggregates
+      app.kubernetes.io/component: nash-reception-aggregates
+      app.kubernetes.io/instance: nash-reception-aggregates
+      app.kubernetes.io/name: nash-reception-aggregates
+  template:
+    metadata:
+      labels:
+        app: nash-reception-aggregates
+        app.kubernetes.io/component: nash-reception-aggregates
+        app.kubernetes.io/instance: nash-reception-aggregates
+        app.kubernetes.io/name: nash-reception-aggregates
+    spec:
+      containers:
+        - name: nash-reception-aggregates
+          image: nash-reception-aggregates
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GOOGLE_CLOUD_PROJECT
+              value: nash-iam-emulate
+            - name: LOG_LEVEL
+              value: INFO
+            - name: SPRING_PROFILES_ACTIVE
+              value: local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: nash-reception-aggregates
+    app.kubernetes.io/instance: nash-reception-aggregates
+    app.kubernetes.io/name: nash-reception-aggregates
+  name: nash-reception-aggregates
+spec:
+  ports:
+    - name: "nash-reception-aggregate"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/component: nash-reception-aggregates
+    app.kubernetes.io/instance: nash-reception-aggregates
+    app.kubernetes.io/name: nash-reception-aggregates

@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "uuid": "eca9047b-44ff-4dbd-afa9-651e8e52840c",
+    "messageType": "CheckInPreAuthorization",
+    "emittedAtDateTime": "2025-01-10T12:00:00Z",
+    "source": "nash-reception-pro",
+    "messageTypeVersion": "1.0"
+  },
+  "data": {
+    "reservationId": "12345",
+    "guestName": "John Doe",
+    "guestEmail": "john.doe@email.com",
+    "checkInDate": "2025-01-10",
+    "roomNumber": "101",
+    "roomType": "Standard",
+    "amount": 150.00,
+    "currency": "USD",
+    "hotelId": "IND:DEL:003",
+    "paymentMethod": "CreditCard",
+    "preAuthorizationStatus": "Pending",
+    "arrivalTime": "15:00",
+    "specialRequests": "King size bed"
+  }
+}

@@ -1,0 +1,6 @@
+FROM liquibase/liquibase:latest
+WORKDIR ./projections
+COPY liquibase/ .
+CMD \
+liquibase --defaults-file=tilt-liquibase.properties --changelog-file=local-init.sql --url=jdbc:postgresql://postgresql:5432/postgres?currentSchema=public update && \
+liquibase --defaults-file=tilt-liquibase.properties --changelog-file=preauth/db.local.changelog.yaml --url=jdbc:postgresql://postgresql:5432/reception_ease?currentSchema=public update

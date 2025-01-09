@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nash-reception-projections-db
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: nash-reception-projections-db
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: nash-reception-projections-db
+        image: nash-reception-projections-db
+        ports:
+        - containerPort: 3000

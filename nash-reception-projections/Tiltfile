@@ -1,0 +1,27 @@
+isWindows = os.getcwd().startswith('C:')
+
+if isWindows:
+    local_resource(
+        'nash-reception-projections-build',
+        cmd = [ "..\\gradlew", ":nash-reception-projections:bootJar", "-p", ".."],
+        deps = ['src', 'build.gradle'],
+    )
+else:
+    local_resource(
+           'nash-reception-projections-build',
+           cmd = [ "../gradlew", ":nash-reception-projections:bootJar", "-p", ".."],
+           deps = ['src', 'build.gradle'],
+       )
+
+
+docker_build(
+  'nash-reception-projections',
+  '.',
+  live_update = [
+      sync('./build/libs', '/app')
+  ],
+)
+
+k8s_yaml('k8s/tilt-reception-projections.yaml')
+k8s_resource('nash-reception-projections', labels='apps-reception',
+             resource_deps = ['nash-reception-projections-build'])

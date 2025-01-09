@@ -1,0 +1,23 @@
+axon:
+  distributed:
+    enabled: true
+    spring-cloud:
+      fallback-to-http-get: true
+      mode: rest
+  metrics:
+    auto-configuration:
+      enabled: true
+    micrometer:
+      dimensional: true
+  serializer:
+    general: jackson
+    messages: jackson
+  tracing:
+    show-event-sourcing-handlers: true
+
+spring:
+  application:
+    name: nash-reception-aggregates
+
+server:
+  shutdown: graceful

@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.liquibase:liquibase-core:4.30.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.liquibase.gradle' version '3.0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    liquibaseRuntime 'org.liquibase:liquibase-core:4.30.0'
+    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:4.0.0'
+    liquibaseRuntime 'info.picocli:picocli:4.7.6'
+    liquibaseRuntime 'org.yaml:snakeyaml:2.3'
+    liquibaseRuntime 'org.postgresql:postgresql:42.7.4'
+    liquibaseRuntime 'com.google.cloud.sql:postgres-socket-factory:1.21.0'
+}
+
+liquibase {
+    activities {
+        main {
+            url "jdbc:postgresql:///$System.env.DATABASE?cloudSqlInstance=$System.env.INSTANCE&socketFactory=com.google.cloud.sql.postgres.SocketFactory&enableIamAuth=true&sslmode=disable"
+            username "$System.env.USER"
+            password "unknown"
+        }
+    }
+}

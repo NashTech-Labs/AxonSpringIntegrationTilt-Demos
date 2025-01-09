@@ -1,0 +1,13 @@
+axon:
+  distributed:
+    enabled: false
+
+spring:
+  datasource:
+    password: test
+    url: jdbc:postgresql://localhost:5437/test
+    username: test
+  cloud:
+    gcp:
+      project-id: "test"
+reception-inbound-pre-auth-pubsub-topic-subscription: "test"

@@ -1,0 +1,28 @@
+axon:
+  eventhandling:
+    processors:
+      ledger-projection:
+        preauth-projection: 2
+        mode: pooled
+        thread-count: 1
+        batch-size: 50
+  distributed:
+    enabled: true
+
+spring:
+  application:
+    name: nash-reception-projections
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+server:
+  shutdown: graceful

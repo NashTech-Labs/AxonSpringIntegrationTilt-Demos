@@ -1,0 +1,5 @@
+spring:
+  datasource:
+      url: jdbc:postgresql://postgresql:5432/eventstore
+      username: postgres
+      password: postgres1

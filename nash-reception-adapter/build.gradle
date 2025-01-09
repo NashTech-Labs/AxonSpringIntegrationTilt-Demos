@@ -1,0 +1,76 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'groovy'
+    id 'java'
+    id 'jacoco'
+}
+
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.axonframework:axon-bom:4.10.4'
+        mavenBom 'com.google.cloud:spring-cloud-gcp-dependencies:5.9.0'
+        mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:2023.0.0'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+    implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client'
+    implementation('org.axonframework:axon-spring-boot-starter') {
+        exclude group: 'org.axonframework', module: 'axon-server-connector'
+    }
+    implementation 'org.axonframework.extensions.springcloud:axon-springcloud-spring-boot-starter'
+    implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub'
+
+    implementation project(':nash-reception-command-api')
+
+    runtimeOnly 'net.logstash.logback:logstash-logback-encoder:8.0'
+    implementation 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    implementation 'org.mapstruct.extensions.spring:mapstruct-spring-annotations:1.1.2'
+    annotationProcessor 'org.mapstruct.extensions.spring:mapstruct-spring-extensions:1.1.2'
+    testAnnotationProcessor 'org.mapstruct.extensions.spring:mapstruct-spring-extensions:1.1.2'
+    testImplementation "org.mapstruct.extensions.spring:mapstruct-spring-test-extensions:1.1.2"
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.spockframework:spock-core:2.4-M4-groovy-4.0'
+    testImplementation 'org.spockframework:spock-spring:2.4-M4-groovy-4.0'
+    testImplementation 'org.springframework.integration:spring-integration-test'
+    testImplementation 'org.testcontainers:testcontainers:1.20.4'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:postgresql'
+
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    groovyOptions.parameters = true
+}
+
+compileJava {
+    options.compilerArgs += [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true'
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
+

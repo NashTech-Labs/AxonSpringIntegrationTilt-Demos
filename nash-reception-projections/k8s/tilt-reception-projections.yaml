@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nash-reception-projections
+  namespace: default
+  labels:
+    app: nash-reception-projections
+    app.kubernetes.io/component: nash-reception-projections
+    app.kubernetes.io/instance: nash-reception-projections
+    app.kubernetes.io/name: nash-reception-projections
+spec:
+  selector:
+    matchLabels:
+      app: nash-reception-projections
+      app.kubernetes.io/component: nash-reception-projections
+      app.kubernetes.io/instance: nash-reception-projections
+      app.kubernetes.io/name: nash-reception-projections
+  template:
+    metadata:
+      labels:
+        app: nash-reception-projections
+        app.kubernetes.io/component: nash-reception-projections
+        app.kubernetes.io/instance: nash-reception-projections
+        app.kubernetes.io/name: nash-reception-projections
+    spec:
+      containers:
+        - name: nash-reception-projections
+          image: nash-reception-projections
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: LOG_LEVEL
+              value: INFO
+            - name: SPRING_WRITESIDE_DATASOURCE_URL
+              value: 'jdbc:postgresql://postgresql:5432/eventstore'
+            - name: SPRING_READSIDE_DATASOURCE_URL
+              value: 'jdbc:postgresql://postgresql:5432/reception_ease'
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres1
+            - name: SPRING_PROFILES_ACTIVE
+              value: local
+            - name: SPRING_CLOUD_KUBERNETES_DISCOVERY_CATALOGSERVICESWATCHDELAY
+              value: '10000'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: nash-reception-projections
+    app.kubernetes.io/instance: nash-reception-projections
+    app.kubernetes.io/name: nash-reception-projections
+  name: nash-reception-projections
+spec:
+  ports:
+    - name: "nash-reception-projections"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/component: nash-reception-projections
+    app.kubernetes.io/instance: nash-reception-projections
+    app.kubernetes.io/name: nash-reception-projections

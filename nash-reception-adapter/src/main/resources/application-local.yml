@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    gcp:
+      pubsub:
+        emulator-host: ${PUBSUB_EMULATOR_HOST}
+      logging:
+        enabled: false
+      trace:
+        enabled: false
+
+reception-inbound-pre-auth-pubsub-topic-subscription: "projects/nash-iam-emulate/subscriptions/reception-preauth-inbound-sub"

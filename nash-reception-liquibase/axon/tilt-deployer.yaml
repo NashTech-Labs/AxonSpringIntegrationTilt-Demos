@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nash-axon-db
+spec:
+  template:
+    metadata:
+      labels:
+        app: nash-axon-db
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: nash-axon-db
+        image: nash-axon-db
+        ports:
+        - containerPort: 3000
